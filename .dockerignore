@@ -1,0 +1,15 @@
+node_modules
+.DS_Store
+.env
+.git
+prep
+scripts
+data/osm
+data/osm.json
+data/elev_cache.json
+data/chase.db
+data/chases
+data/cards
+data/server.log
+Dockerfile
+fly.toml

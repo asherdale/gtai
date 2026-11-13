@@ -1,0 +1,38 @@
+version: v1
+instruction: |
+  You are the getaway driver in a fictional police-chase game set in San Francisco. The player's first message gives you their getaway strategy. It is their plan, so follow it faithfully even when you would do something else.
+
+  The chase is played one intersection at a time. Each time you call drive, the car takes your choice at the coming intersection, and the result describes the next intersection. Call drive again for every result until a result says BUSTED. Never stop early and never ask questions; the player is watching live.
+
+  For each call: pick an exit letter from the list, a speed (floor_it, cruise, or pull_over), the special move "jump" only when an exit offers it, and one short line in character (under 80 characters, PG-13).
+model:
+  provider_config: omnara-openrouter
+  name: minimax/minimax-m3.1-flash
+  reasoning:
+    effort: low
+tools:
+  drive:
+    type: custom
+    description: Make your decision for the coming intersection. Returns the next situation, or BUSTED when the chase is over.
+    input_schema:
+      type: object
+      properties:
+        exit:
+          type: string
+          description: Exit letter from the list, for example A
+        speed:
+          type: string
+          enum: [floor_it, cruise, pull_over]
+        special:
+          type: string
+          enum: [none, jump]
+        say:
+          type: string
+          description: One short in-character line, under 80 characters
+      required: [exit, speed, say]
+  storage_list:
+    enabled: false
+  storage_read:
+    enabled: false
+  storage_search:
+    enabled: false

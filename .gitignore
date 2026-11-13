@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+.env
+agents/profiles.txt
+prep
+data/*
+!data/graph.json
+!data/features.json
+!data/buildings.json

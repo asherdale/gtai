@@ -1,0 +1,16 @@
+{
+  "name": "gtai-vibe-city",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.13"
+  },
+  "scripts": {
+    "setup": "node --env-file=.env scripts/setup.mjs",
+    "start": "node --env-file-if-exists=.env server.mjs",
+    "simulate": "node scripts/simulate.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

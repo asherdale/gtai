@@ -1,0 +1,159 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>How it works · GTAI: Vibe City</title>
+<meta name="description" content="Every chase is driven live by its own AI agent running on Omnara, with one custom tool: drive.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/bungee.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/rubik.woff2" as="font" type="font/woff2" crossorigin>
+<style>@font-face{font-family:'Bungee';src:url(/fonts/bungee.woff2) format('woff2');font-display:block}@font-face{font-family:'Rubik';src:url(/fonts/rubik.woff2) format('woff2');font-weight:300 900;font-display:block}</style>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:'Rubik',sans-serif;color:#fff;background:linear-gradient(180deg,#ff8a5c 0,#c4508a 260px,#3a2a63 560px,#170f2b 900px) no-repeat,#170f2b}
+a{color:#ffd23f}
+header{max-width:900px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
+.pills{display:flex;gap:8px}
+.logo{font-family:'Bungee';font-size:22px;color:#ffd23f;-webkit-text-stroke:2px #1b1426;text-shadow:0 3px 0 #1b1426;text-decoration:none}
+.pill{color:#ffd23f;font-weight:600;text-decoration:none;font-size:14px;background:#1b1426d9;padding:7px 14px;border-radius:999px}
+main{max-width:900px;margin:0 auto;padding:8px 24px 40px}
+h1{font-family:'Bungee';font-size:clamp(34px,6vw,54px);margin:24px 0 10px;-webkit-text-stroke:2px #1b1426;text-shadow:0 5px 0 #1b1426;text-align:center}
+.lede{font-size:18px;line-height:1.5;text-align:center;max-width:640px;margin:0 auto;background:#1b1426d9;padding:12px 18px;border-radius:14px}
+.stats{text-align:center;font-size:14px;font-weight:600;color:#ffd23f;margin:12px 0 0;min-height:18px}
+.card{background:#1b1426ee;border:2px solid #3a2f52;border-radius:18px;padding:24px;margin-top:22px;box-shadow:0 8px 0 #0d0916}
+h2{font-size:22px;font-weight:700;color:#ffd23f;margin:0 0 14px}
+.diagram{padding:18px 14px}
+.diagram svg{display:block;width:100%;height:auto;font-family:'Rubik',sans-serif}
+.diagram .node rect{fill:#2b2236;stroke:#57486a;stroke-width:2}
+.diagram .node.lead rect{stroke:#ffd23f}
+.diagram .node.lead rect.halo{fill:none;stroke:#ffd23f;stroke-width:6;opacity:.45}
+.diagram .ico *{fill:none;stroke:#d8cdf0;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.diagram .lead .ico *{stroke:#ffd23f}
+.diagram .ico .pin{fill:#ffd23f;stroke:none}
+.diagram .t{fill:#fff;font-size:17px;font-weight:700;text-anchor:middle}
+.diagram .s{fill:#cfc3ea;font-size:13px;text-anchor:middle}
+.diagram .l{fill:#ffd23f;font-size:13px;font-weight:600;text-anchor:middle}
+.diagram .flowline{fill:none;stroke:#ffd23f;stroke-width:2.5;stroke-dasharray:7 7;animation:flow 1s linear infinite}
+.diagram .dot{fill:#fff;filter:drop-shadow(0 0 6px #ffd23f)}
+@keyframes flow{to{stroke-dashoffset:-14}}
+.vflow{display:none}
+@media (max-width:640px){
+  header{padding:12px 16px}.logo{font-size:17px}.pill{font-size:12px;padding:6px 10px}
+  main{padding:4px 14px 32px}.card{padding:18px 16px}.lede{font-size:16px}
+  .diagram svg{display:none}
+  .vflow{display:flex;flex-direction:column;gap:6px}
+  .vnode{background:#2b2236;border:2px solid #57486a;border-radius:14px;padding:12px;text-align:center}
+  .vnode b{display:block;font-size:16px}.vnode span{display:block;font-size:13px;color:#cfc3ea;margin-top:2px}
+  .vnode.lead{border-color:#ffd23f;box-shadow:0 0 18px #ffd23f55}
+  .varrow{text-align:center;color:#ffd23f;font-size:13px;font-weight:600;animation:bob 1.4s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(3px)}}
+  pre{font-size:11.5px}
+}
+ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
+ol li{display:flex;gap:14px}
+.num{flex:none;width:30px;height:30px;border-radius:50%;background:#ffd23f;color:#1b1426;font-weight:800;display:grid;place-items:center}
+h3{margin:2px 0 4px;font-size:17px}
+p,li{line-height:1.55;font-size:15.5px;color:#ece6fa}
+li p{margin:0}
+ul.rules{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;background:#2b2236;padding:1px 6px;border-radius:6px}
+pre{background:#120c22;border:1px solid #3a2f52;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:13px;line-height:1.5;color:#e0d6f5}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.btn{font-weight:700;font-size:16px;text-decoration:none;color:#1b1426;background:#ffd23f;border:3px solid #1b1426;border-radius:10px;padding:10px 16px;box-shadow:0 4px 0 #1b1426}
+.btn.alt{background:#fff}
+footer{text-align:center;font-size:13px;color:#cfc3ea;padding:0 24px 28px}
+@media (max-width:760px){</style></head>
+<body>
+<header><a class="logo" href="/">GTAI: VIBE CITY</a><div class="pills"><!--REPO_PILL--><a class="pill" href="https://www.omnara.com" target="_blank">Built on Omnara</a></div></header>
+<main>
+  <h1>How it works</h1>
+  <p class="lede">Every chase is driven live by its own AI agent running on <a href="https://www.omnara.com" target="_blank">Omnara</a>. Here's what happens after you hit Start the chase.</p>
+  <p class="stats" id="stats"></p>
+
+  <section class="card diagram">
+    <svg viewBox="0 36 960 236" role="img" aria-label="You send a plan to the driver agent on Omnara, which trades drive calls and intersections with the game server, which streams the chase to your screen">
+      <defs>
+        <marker id="tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ffd23f"/></marker>
+        <filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8"/></filter>
+        <path id="out" d="M430 124 C462 66 504 66 536 124"/>
+        <path id="back" d="M536 176 C504 234 462 234 430 176"/>
+      </defs>
+      <g class="node"><rect x="10" y="80" width="172" height="140" rx="20"/>
+        <g class="ico" transform="translate(96 122)"><rect x="-14" y="-17" width="28" height="34" rx="4"/><path d="M-7 -7 H7 M-7 0 H7 M-7 7 H3"/></g>
+        <text x="96" y="172" class="t">You</text><text x="96" y="194" class="s">strategy, start, driver</text></g>
+      <g class="node lead"><rect x="252" y="80" width="172" height="140" rx="20" class="halo" filter="url(#glow)"/><rect x="252" y="80" width="172" height="140" rx="20"/>
+        <g class="ico" transform="translate(338 122)"><circle r="17"/><circle r="4.5"/><path d="M-4.5 0 H-17 M4.5 0 H17 M0 4.5 V17"/></g>
+        <text x="338" y="172" class="t">Driver agent</text><text x="338" y="194" class="s">one per chase, on Omnara</text></g>
+      <g class="node"><rect x="542" y="80" width="172" height="140" rx="20"/>
+        <g class="ico" transform="translate(628 122)"><rect x="-17" y="-17" width="34" height="34" rx="4"/><path d="M-6 -17 V17 M6 -17 V17 M-17 -6 H17 M-17 6 H17"/><circle cx="6" cy="-6" r="3.5" class="pin"/></g>
+        <text x="628" y="172" class="t">Game server</text><text x="628" y="194" class="s">simulates San Francisco</text></g>
+      <g class="node"><rect x="778" y="80" width="172" height="140" rx="20"/>
+        <g class="ico" transform="translate(864 120)"><rect x="-20" y="-15" width="40" height="27" rx="4"/><path d="M-8 18 H8 M0 12 V18"/><path d="M-4 -7 L6 -1.5 L-4 4 z" class="pin"/></g>
+        <text x="864" y="172" class="t">Your screen</text><text x="864" y="194" class="s">plays the chase live</text></g>
+      <path d="M186 150 H246" class="flowline" marker-end="url(#tip)"/>
+      <text x="216" y="136" class="l">plan</text>
+      <use href="#out" class="flowline" marker-end="url(#tip)"/>
+      <use href="#back" class="flowline" marker-end="url(#tip)"/>
+      <text x="483" y="58" class="l">drive call</text>
+      <text x="483" y="256" class="l">next intersection</text>
+      <path d="M718 150 H772" class="flowline" marker-end="url(#tip)"/>
+      <text x="745" y="136" class="l">live</text>
+      <circle r="5" class="dot"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#out"/></animateMotion></circle>
+      <circle r="5" class="dot"><animateMotion dur="1.6s" begin="0.8s" repeatCount="indefinite"><mpath href="#back"/></animateMotion></circle>
+    </svg>
+    <div class="vflow">
+      <div class="vnode"><b>You</b><span>strategy, start, driver</span></div>
+      <div class="varrow">↓ plan</div>
+      <div class="vnode lead"><b>Driver agent</b><span>one per chase, on Omnara</span></div>
+      <div class="varrow">⇅ drive call · next intersection</div>
+      <div class="vnode"><b>Game server</b><span>simulates San Francisco</span></div>
+      <div class="varrow">↓ live</div>
+      <div class="vnode"><b>Your screen</b><span>plays the chase live</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <ol>
+      <li><span class="num">1</span><div><h3>You write the plan</h3><p>Up to 280 characters of strategy, a starting point anywhere from Lombard Street to Twin Peaks, and the AI model that drives. A moderation check screens your plan before it runs.</p></div></li>
+      <li><span class="num">2</span><div><h3>An agent gets in the car</h3><p>Omnara starts a fresh agent for your chase from a driver profile: the model you picked plus one custom tool, <code>drive</code>. Your strategy is the agent's first message.</p></div></li>
+      <li><span class="num">3</span><div><h3>Every intersection is a tool call</h3><p>Our game server simulates San Francisco's real streets and hills, with police hunting you. At each intersection it describes the scene: where the cops are, which exits you have, and what's closed. The agent calls <code>drive</code> with an exit, a speed and a line of dialogue, and Omnara holds that call until the server answers with the next intersection. The game waits up to 8 seconds for each decision. After that, the car keeps going straight.</p></div></li>
+      <li><span class="num">4</span><div><h3>You watch it live</h3><p>The server streams every move to your browser, which plays the chase at real speed while the agent keeps driving ahead. Every line the driver says passes the same moderation check before it reaches your screen.</p></div></li>
+      <li><span class="num">5</span><div><h3>Busted</h3><p>The chase ends when a patrol car catches you, or at 6:00 when the city locks down. Your time goes on the leaderboard. Run it back sends the same agent out again with the same plan, up to three runs in total, and it remembers how it got caught.</p></div></li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>How the cops work</h2>
+    <ul class="rules">
+      <li>Your wanted level rises the longer you're on the run, about three times faster while a cop can see you. More stars bring more units.</li>
+      <li>Any cop within 150 m sees you. Tunnels hide you, and jumping a hill crest hides you briefly.</li>
+      <li>While you're out of sight, 911 callers keep reporting where you are.</li>
+      <li><b>Floor it</b> is full speed, but loud while you're hidden: your stars climb faster and 911 calls come quicker. <b>Cruise</b> is 70% speed and quieter. <b>Pull over</b> stops you for 5 seconds.</li>
+      <li>From 3 stars, roadblocks close streets ahead of you for a minute.</li>
+      <li>From 4 stars, interceptors try to cut you off.</li>
+      <li>At 5 stars, a helicopter spotlight follows you and backup keeps arriving.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Build your own</h2>
+    <p>The whole driver is one Omnara agent profile with a single custom tool. Our server answers each <code>drive</code> call through Omnara's API, so the model only ever sees the scene in words.</p>
+<pre>tools:
+  drive:
+    type: custom
+    description: Make your decision for the coming intersection.
+      Returns the next situation, or BUSTED when the chase is over.
+    input_schema:
+      type: object
+      properties:
+        exit:  { type: string, description: Exit letter from the list }
+        speed: { type: string, enum: [floor_it, cruise, pull_over] }
+        special: { type: string, enum: [none, jump] }
+        say:   { type: string, description: One short in-character line }
+      required: [exit, speed, say]</pre>
+    <div class="actions"><a class="btn" href="https://www.omnara.com" target="_blank">Try Omnara</a><!--REPO--><a class="btn alt" href="/">Start a chase</a></div>
+  </section>
+</main>
+<footer>A fan parody, not affiliated with Rockstar Games. Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors. Elevation data by <a href="https://open-meteo.com" target="_blank">Open-Meteo</a>.</footer>
+<script type="module">
+const stats = await fetch('/api/stats').then((r) => r.json())
+if (stats.chases) document.getElementById('stats').textContent = `${stats.chases} chases driven so far by ${stats.agents} AI agents`
+</script>
+</body></html>
